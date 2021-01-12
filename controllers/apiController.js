@@ -32,5 +32,5 @@ exports.get_rate = (req, res, next) => {
         statuscode: status
       };
       return write_response(res, output, status);
-    })
+    });
 };
