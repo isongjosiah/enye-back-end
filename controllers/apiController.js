@@ -16,8 +16,8 @@ exports.get_rate = (req, res, next) => {
         error: err.message,
         statuscode: err.message.slice(-3)
       };
-      res.status(output.results.statuscode);
-      res.json(output);
+      res.status(output.results.statuscode).json(output);
+      res.end();
     })
     .then(resp => resp.data)
     .catch(err => {
@@ -25,8 +25,8 @@ exports.get_rate = (req, res, next) => {
         error: err.toString(),
         statuscode: 500
       };
-      res.status(500);
-      res.json(output);
+      res.status(500).json(output);
+      res.end();
     })
     .then(data => {
       output.results = {
@@ -35,13 +35,13 @@ exports.get_rate = (req, res, next) => {
         rates: data.rates
       };
       res.json(output);
+      res.end();
     })
     .catch(err => {
       output.results = {
         error: err.toString(),
         statuscode: 500
       };
-      res.status(500);
-      res.json(output);
+      console.log(output)
     });
 };
