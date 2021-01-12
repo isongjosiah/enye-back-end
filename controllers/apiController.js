@@ -1,5 +1,10 @@
 const axios = require("axios");
 
+const write_response = (res, output, status) => {
+  // res.status(status).
+  res.json(output);
+};
+
 exports.get_rate = (req, res, next) => {
   //get the url query parameters and convert the query parameter to a list of string. .split still returns an array if it is just one currency so that is cool.
   let base = req.query.base;
@@ -11,37 +16,21 @@ exports.get_rate = (req, res, next) => {
   endpoint = `${url}?base=${base}&symbols=${currency}`;
   axios
     .get(endpoint)
-    .catch(err => {
-      output.results = {
-        error: err.message,
-        statuscode: err.message.slice(-3)
-      };
-      res.status(output.results.statuscode).json(output);
-      res.end();
-    })
     .then(resp => resp.data)
-    .catch(err => {
-      output.results = {
-        error: err.toString(),
-        statuscode: 500
-      };
-      res.status(500).json(output);
-      res.end();
-    })
     .then(data => {
       output.results = {
         base: data.base,
         date: data.date,
         rates: data.rates
       };
-      res.json(output);
-      res.end();
+      return write_response(res, output, 200);
     })
     .catch(err => {
+      status = err.message.slice(-3);
       output.results = {
-        error: err.toString(),
-        statuscode: 500
+        error: err.message,
+        statuscode: status
       };
-      console.log(output)
-    });
+      return write_response(res, output, status);
+    })
 };
