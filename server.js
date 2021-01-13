@@ -5,7 +5,6 @@ const port = process.env.PORT || "5000";
 const apiRouter = require('./routes/api')
 
 app.get("/", (req, res) => {
-  // discuss how the api works here
   res.send("Hello Enye Reviewer. Nice to meet you! Please visit the /api/rates route");
 });
 

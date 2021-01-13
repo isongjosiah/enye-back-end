@@ -1,12 +1,11 @@
 const axios = require("axios");
 
 const write_response = (res, output, status) => {
-  // res.status(status).
+  res.status(status);
   res.json(output);
 };
 
 exports.get_rate = (req, res, next) => {
-  //get the url query parameters and convert the query parameter to a list of string. .split still returns an array if it is just one currency so that is cool.
   let base = req.query.base;
   let currency = req.query.currency;
   output = {};
