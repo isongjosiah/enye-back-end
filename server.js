@@ -5,7 +5,8 @@ const cors = require('cors')
 
 const apiRouter = require('./routes/api')
 
-app.use(cors())
+
+app.use(cors({origin:true}))
 
 app.get("/", (req, res) => {
   res.send("Hello Enye Reviewer. Nice to meet you! Please visit the /api/rates route");
